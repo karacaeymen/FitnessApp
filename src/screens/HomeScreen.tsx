@@ -1,5 +1,6 @@
 import React, { useMemo } from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Image } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
+import { Image } from 'expo-image';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import type { AppStackParamList } from '../navigation/types';
 import { useProfile } from '../context/ProfileContext';
@@ -35,7 +36,7 @@ export default function HomeScreen({ navigation }: Props) {
           <Text style={styles.cardBodyParts}>{today.bodyParts.join(' + ')}</Text>
           {today.exercises.map((ex) => (
             <View key={ex.id} style={styles.exerciseRow}>
-              <Image source={{ uri: ex.imageUrl }} style={styles.thumb} />
+              <Image source={ex.imageUrl} style={styles.thumb} />
               <View style={{ flex: 1 }}>
                 <Text style={styles.exerciseName}>{ex.name}</Text>
                 <Text style={styles.exerciseMeta}>
@@ -65,7 +66,7 @@ const styles = StyleSheet.create({
   card: { backgroundColor: '#1e293b', borderRadius: 16, padding: 16 },
   cardBodyParts: { color: '#22c55e', fontWeight: '700', fontSize: 15, marginBottom: 12 },
   exerciseRow: { flexDirection: 'row', alignItems: 'center', gap: 12, marginBottom: 12 },
-  thumb: { width: 48, height: 48, borderRadius: 8, backgroundColor: '#0f172a' },
+  thumb: { width: 48, height: 48, borderRadius: 8, backgroundColor: '#f1f5f9' },
   exerciseName: { color: '#fff', fontWeight: '600', fontSize: 14 },
   exerciseMeta: { color: '#94a3b8', fontSize: 12, marginTop: 2 },
   startButton: { backgroundColor: '#22c55e', borderRadius: 12, paddingVertical: 15, alignItems: 'center', marginTop: 8 },

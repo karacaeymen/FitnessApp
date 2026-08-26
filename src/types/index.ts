@@ -1,3 +1,5 @@
+import type { ImageSourcePropType } from 'react-native';
+
 export type BodyPart = 'Göğüs' | 'Sırt' | 'Omuz' | 'Pazu' | 'Triceps' | 'Ön Kol' | 'Bacak' | 'Karın';
 
 export type ExerciseKind = 'weighted' | 'bodyweight' | 'timed';
@@ -7,7 +9,9 @@ export type Exercise = {
   name: string;
   bodyPart: BodyPart;
   equipment: string;
-  imageUrl: string;
+  imageUrl: ImageSourcePropType;
+  /** Optional second frame (end position) showing the completed movement, when available. */
+  imageUrl2?: ImageSourcePropType;
   instructions: string;
   kind: ExerciseKind;
   targetSets: number;

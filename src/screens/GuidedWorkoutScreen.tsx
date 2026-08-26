@@ -5,11 +5,11 @@ import {
   TextInput,
   TouchableOpacity,
   StyleSheet,
-  Image,
   ActivityIndicator,
   Alert,
   ScrollView,
 } from 'react-native';
+import { Image } from 'expo-image';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import type { AppStackParamList } from '../navigation/types';
 import { useProfile } from '../context/ProfileContext';
@@ -125,7 +125,18 @@ export default function GuidedWorkoutScreen({ route, navigation }: Props) {
         {stepIndex + 1} / {day.exercises.length} · {day.dayName}
       </Text>
 
-      <Image source={{ uri: exercise.imageUrl }} style={styles.image} resizeMode="contain" />
+      <View style={styles.imageRow}>
+        <View style={styles.imageBlock}>
+          <Image source={exercise.imageUrl} style={styles.image} contentFit="contain" />
+          <Text style={styles.imageLabel}>{exercise.imageUrl2 ? 'Başlangıç' : 'Hareket'}</Text>
+        </View>
+        {exercise.imageUrl2 && (
+          <View style={styles.imageBlock}>
+            <Image source={exercise.imageUrl2} style={styles.image} contentFit="contain" />
+            <Text style={styles.imageLabel}>Bitiş</Text>
+          </View>
+        )}
+      </View>
 
       <Text style={styles.exerciseName}>{exercise.name}</Text>
       <Text style={styles.equipment}>{exercise.equipment}</Text>
@@ -185,7 +196,10 @@ export default function GuidedWorkoutScreen({ route, navigation }: Props) {
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#0f172a' },
   progress: { color: '#64748b', fontSize: 13, marginBottom: 16, fontWeight: '600' },
-  image: { width: '100%', height: 220, backgroundColor: '#1e293b', borderRadius: 16, marginBottom: 16 },
+  imageRow: { flexDirection: 'row', gap: 10, marginBottom: 8 },
+  imageBlock: { flex: 1 },
+  image: { width: '100%', height: 180, backgroundColor: '#f1f5f9', borderRadius: 16 },
+  imageLabel: { color: '#64748b', fontSize: 12, textAlign: 'center', marginTop: 6, marginBottom: 8, fontWeight: '600' },
   exerciseName: { color: '#fff', fontSize: 22, fontWeight: '700' },
   equipment: { color: '#22c55e', fontSize: 13, fontWeight: '600', marginTop: 4, marginBottom: 10 },
   instructions: { color: '#94a3b8', fontSize: 14, lineHeight: 21, marginBottom: 20 },

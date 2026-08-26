@@ -1,5 +1,6 @@
 import React, { useMemo } from 'react';
-import { View, Text, StyleSheet, FlatList, TouchableOpacity, Image } from 'react-native';
+import { View, Text, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
+import { Image } from 'expo-image';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import type { AppStackParamList } from '../navigation/types';
 import { useProfile } from '../context/ProfileContext';
@@ -40,7 +41,10 @@ export default function DayDetailScreen({ route, navigation }: Props) {
           const weight = baselineSuggestedWeight(item, profile);
           return (
             <View style={styles.exerciseCard}>
-              <Image source={{ uri: item.imageUrl }} style={styles.thumb} />
+              <View style={styles.thumbGroup}>
+                <Image source={item.imageUrl} style={styles.thumb} />
+                {item.imageUrl2 && <Image source={item.imageUrl2} style={styles.thumb} />}
+              </View>
               <View style={{ flex: 1 }}>
                 <Text style={styles.exerciseName}>{item.name}</Text>
                 <Text style={styles.exerciseMeta}>
@@ -79,7 +83,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: 12,
   },
-  thumb: { width: 56, height: 56, borderRadius: 10, backgroundColor: '#0f172a' },
+  thumbGroup: { flexDirection: 'row', gap: 4 },
+  thumb: { width: 56, height: 56, borderRadius: 10, backgroundColor: '#f1f5f9' },
   exerciseName: { color: '#fff', fontWeight: '700', fontSize: 15 },
   exerciseMeta: { color: '#94a3b8', fontSize: 12, marginTop: 4 },
   exerciseWeight: { color: '#22c55e', fontSize: 12, marginTop: 4, fontWeight: '600' },
